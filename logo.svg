@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Orbit Maven logo">
+
+  <defs>
+    <!-- The planet: warm orange fading to a deep shadow -->
+    <radialGradient id="planetGradient" cx="35%" cy="30%" r="75%">
+      <stop offset="0%" stop-color="#ffd0a0" />
+      <stop offset="55%" stop-color="#e2725b" />
+      <stop offset="100%" stop-color="#6b2336" />
+    </radialGradient>
+
+    <!-- The orbit ring: sky blue to teal -->
+    <linearGradient id="ringGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#5eead4" />
+    </linearGradient>
+  </defs>
+
+  <!-- 1. BACK half of the orbit ring (drawn first, so the planet covers it) -->
+  <g transform="rotate(-25 32 32)"
+     fill="none"
+     stroke="url(#ringGradient)"
+     stroke-width="3"
+     stroke-linecap="round">
+    <path d="M 4 32 A 28 10 0 0 1 60 32" opacity="0.55" />
+  </g>
+
+  <!-- 2. The planet -->
+  <circle cx="32" cy="32" r="14" fill="url(#planetGradient)" />
+
+  <!-- 3. FRONT half of the orbit ring (drawn last, so it passes in front of the planet) -->
+  <g transform="rotate(-25 32 32)"
+     fill="none"
+     stroke="url(#ringGradient)"
+     stroke-width="3"
+     stroke-linecap="round">
+    <path d="M 4 32 A 28 10 0 0 0 60 32" />
+
+    <!-- 4. The little satellite riding the orbit -->
+    <circle cx="46" cy="40.7" r="3.2" fill="#ffffff" stroke="none" />
+  </g>
+
+</svg>

@@ -1,0 +1,1114 @@
+
+:root {
+  /* Backgrounds */
+  --bg: #050816;
+  --bg-soft: #0b1130;
+
+  /* Glass panels */
+  --panel: rgba(255, 255, 255, 0.05);
+  --panel-strong: rgba(255, 255, 255, 0.09);
+  --border: rgba(255, 255, 255, 0.12);
+
+  /* Text */
+  --text: #8297ff;
+  --muted: #6f7aaa;
+
+  /* Planet colors */
+  --teal: #5eead4;
+  --sky: #38bdf8;
+  --mars: #e2725b;
+  --orange: #ffb36b;
+  --violet: #a78bfa;
+  --moon: #cfd6e6;
+
+  /* Status colors */
+  --good: #4ade80;
+  --warn: #fbbf24;
+  --bad: #fb7185;
+
+  /* Fonts */
+  --font-heading: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Inter", "Segoe UI", system-ui, sans-serif;
+
+  /* Sizes */
+  --radius: 18px;
+  --max-width: 1120px;
+}
+
+
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  /* Smooth scrolling when clicking menu links */
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+
+  background:
+    radial-gradient(circle at 15% 10%, rgba(176, 216, 233, 0.14), transparent 45%),
+    radial-gradient(circle at 85% 30%, rgba(167, 139, 250, 0.12), transparent 45%),
+    radial-gradient(circle at 50% 100%, rgba(226, 114, 91, 0.1), transparent 50%),
+    var(--bg);
+  background-attachment: fixed;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--text);
+}
+
+/* Stops the page from scrolling while the pop-up is open */
+body.no-scroll {
+  overflow: hidden;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading);
+  line-height: 1.15;
+  margin: 0;
+}
+
+p {
+  margin: 0 0 1rem;
+}
+
+a {
+  color: var(--teal);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+/* The "hidden" attribute should always win */
+[hidden] {
+  display: none !important;
+}
+
+/* A clear outline when using the keyboard */
+:focus-visible {
+  outline: 3px solid var(--teal);
+  outline-offset: 3px;
+}
+
+/* The star canvas sits behind everything */
+#starfield {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+.container {
+  width: min(var(--max-width), 100% - 40px);
+  margin-inline: auto;
+}
+
+.container-narrow {
+  width: min(760px, 100% - 40px);
+}
+
+.section {
+  padding: 96px 0;
+}
+
+/* A slightly different background to separate sections */
+.section-alt {
+  background: rgba(11, 17, 48, 0.55);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -60px;
+  padding: 10px 16px;
+  background: var(--teal);
+  color: var(--bg);
+  border-radius: 8px;
+  font-weight: 600;
+  z-index: 200;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: 12px;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(5, 8, 22, 0.75);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 70px;
+}
+
+/* Logo + name */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.brand-logo {
+  width: 40px;
+  height: 40px;
+}
+
+.brand-name {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.3rem;
+  letter-spacing: 0.02em;
+}
+
+.brand-accent {
+  color: var(--teal);
+  font-weight: 500;
+  margin-left: 2px;
+}
+
+/* Menu links */
+.site-nav ul {
+  display: flex;
+  gap: 8px;
+  list-style: none;
+}
+
+.site-nav a {
+  display: block;
+  padding: 8px 16px;
+  border-radius: 999px;
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.site-nav a:hover {
+  color: var(--text);
+  background: var(--panel-strong);
+}
+
+/* The three-bar menu button (hidden on big screens) */
+.nav-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  cursor: pointer;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.nav-toggle-bar {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 28px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+}
+
+.button-primary {
+  color: #06101f;
+  background: linear-gradient(135deg, var(--teal), var(--sky));
+  box-shadow: 0 10px 30px -10px rgba(94, 234, 212, 0.7);
+}
+
+.button-ghost {
+  color: var(--text);
+  background: var(--panel);
+  border-color: var(--border);
+}
+
+.button-ghost:hover {
+  background: var(--panel-strong);
+}
+
+
+/* =========================================================
+   6. HERO AND ORBIT ANIMATION
+   ========================================================= */
+.hero {
+  padding: 80px 0 100px;
+  overflow: hidden;
+}
+
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  gap: 48px;
+}
+
+.eyebrow {
+  margin: 0 0 14px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+
+.hero h1 {
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  margin-bottom: 20px;
+}
+
+/* Text filled with a color gradient */
+.gradient-text {
+  display: block;
+  background: linear-gradient(90deg, var(--orange), var(--mars), var(--violet));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-lead {
+  max-width: 540px;
+  font-size: 1.15rem;
+  color: var(--muted);
+}
+
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin: 28px 0 40px;
+}
+
+/* The three counters under the buttons */
+.hero-stats {
+  display: flex;
+  gap: 36px;
+  list-style: none;
+}
+
+.hero-stats strong {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  line-height: 1;
+  color: var(--text);
+}
+
+.hero-stats span {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* ----- The orbiting planet system ----- */
+.hero-visual {
+  display: flex;
+  justify-content: center;
+}
+
+.orbit-system {
+  position: relative;
+  width: min(420px, 80vw);
+  aspect-ratio: 1 / 1;
+}
+
+/* The big planet in the middle */
+.planet-core {
+  position: absolute;
+  inset: 33%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ffd0a0, #e2725b 55%, #5a1f2e);
+  box-shadow:
+    0 0 70px rgba(226, 114, 91, 0.45),
+    inset -14px -14px 30px rgba(0, 0, 0, 0.35);
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Every ring is a circle that slowly spins */
+.orbit-ring {
+  position: absolute;
+  border: 1px dashed rgba(94, 234, 212, 0.35);
+  border-radius: 50%;
+  animation: spin linear infinite;
+}
+
+.ring-1 {
+  inset: 18%;
+  animation-duration: 16s;
+}
+
+.ring-2 {
+  inset: 6%;
+  animation-duration: 28s;
+  animation-direction: reverse;
+}
+
+.ring-3 {
+  inset: -5%;
+  animation-duration: 46s;
+}
+
+/* A small ball riding on each ring */
+.orbit-dot {
+  position: absolute;
+  top: -7px;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  margin-left: -7px;
+  border-radius: 50%;
+}
+
+.dot-moon {
+  background: var(--moon);
+  box-shadow: 0 0 14px var(--moon);
+}
+
+.dot-mars {
+  background: var(--mars);
+  box-shadow: 0 0 14px var(--mars);
+}
+
+.dot-deep {
+  background: var(--violet);
+  box-shadow: 0 0 14px var(--violet);
+}
+
+/* Animations */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.section-heading {
+  margin-bottom: 36px;
+}
+
+.section-heading h2 {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  margin-bottom: 12px;
+}
+
+.section-lead {
+  max-width: 620px;
+  color: var(--muted);
+}
+
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.filter-button {
+  padding: 10px 22px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--muted);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-button:hover {
+  color: var(--text);
+  background: var(--panel-strong);
+}
+
+/* The selected filter */
+.filter-button.is-active {
+  color: #06101f;
+  background: linear-gradient(135deg, var(--teal), var(--sky));
+  border-color: transparent;
+}
+
+/* The little explanation of badge colors */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin-bottom: 32px;
+  list-style: none;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* Status badge (used on cards and in the pop-up) */
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 12px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border: 1px solid currentColor;
+}
+
+/* The colored dot inside the badge */
+.status::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.status-active {
+  color: var(--good);
+  background: rgba(74, 222, 128, 0.1);
+}
+
+.status-silent {
+  color: var(--warn);
+  background: rgba(251, 191, 36, 0.1);
+}
+
+.status-ended {
+  color: var(--bad);
+  background: rgba(251, 113, 133, 0.1);
+}
+.place-moon {
+  --accent: var(--moon);
+}
+
+.place-mars {
+  --accent: var(--mars);
+}
+
+.place-deep {
+  --accent: var(--violet);
+}
+
+.mission-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 22px;
+}
+
+.mission-card {
+  display: flex;
+  flex-direction: column;
+  padding: 26px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.mission-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--accent);
+  box-shadow: 0 20px 40px -22px var(--accent);
+}
+
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+/* A glowing little planet in the card's accent color */
+.card-orb {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 30%,
+    rgba(255, 255, 255, 0.85),
+    var(--accent) 40%,
+    rgba(5, 8, 22, 0.9) 100%
+  );
+  box-shadow: 0 0 26px -4px var(--accent);
+}
+
+.card-place {
+  margin: 0 0 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.card-title {
+  margin-bottom: 4px;
+  font-size: 1.35rem;
+}
+
+.card-year {
+  margin: 0 0 12px;
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+
+.card-text {
+  flex-grow: 1;
+  color: var(--muted);
+  font-size: 0.98rem;
+}
+
+/* The "Read the story" button inside each card */
+.card-button {
+  align-self: flex-start;
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.card-button::after {
+  content: " \2192";
+  transition: margin-left 0.2s ease;
+}
+
+.mission-card:hover .card-button::after {
+  margin-left: 4px;
+}
+
+.voice-note {
+  margin-top: 36px;
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--muted);
+}
+
+dialog {
+  width: min(760px, 94vw);
+  max-height: 88vh;
+  padding: 0;
+  overflow: hidden;
+  color: var(--text);
+  background: linear-gradient(160deg, #101840, #070b20 70%);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--accent, var(--teal));
+  border-radius: 22px;
+  box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.8);
+}
+
+/* The dialog also uses the place colors */
+dialog[data-place="moon"] {
+  --accent: var(--moon);
+}
+
+dialog[data-place="mars"] {
+  --accent: var(--mars);
+}
+
+dialog[data-place="deep"] {
+  --accent: var(--violet);
+}
+
+/* The dark blurry layer behind the pop-up */
+dialog::backdrop {
+  background: rgba(2, 4, 15, 0.78);
+  backdrop-filter: blur(4px);
+}
+
+dialog[open] {
+  animation: pop-in 0.3s ease;
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.dialog-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background: var(--panel-strong);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  color: var(--text);
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.dialog-close:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+/* The scrolling part of the pop-up */
+.dialog-inner {
+  max-height: 88vh;
+  padding: 40px 36px 36px;
+  overflow-y: auto;
+}
+
+.dialog-place {
+  margin: 0 0 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent, var(--teal));
+}
+
+.dialog-inner h2 {
+  margin-bottom: 14px;
+  padding-right: 40px;
+  font-size: clamp(1.7rem, 4vw, 2.3rem);
+}
+
+.dialog-badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.year-pill {
+  padding: 3px 12px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.dialog-tagline {
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.dialog-section {
+  margin-top: 28px;
+}
+
+.dialog-section h3 {
+  margin-bottom: 12px;
+  font-size: 1.1rem;
+  color: var(--accent, var(--teal));
+}
+
+.dialog-section h3 small {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+/* The machine's "own words" get a colored bar on the left */
+.voice-block {
+  padding-left: 18px;
+  border-left: 3px solid var(--accent, var(--teal));
+}
+
+.voice-block p {
+  color: #d3d9f5;
+}
+
+.dialog-section ul {
+  padding-left: 22px;
+}
+
+.dialog-section li {
+  margin-bottom: 8px;
+  color: #d3d9f5;
+}
+
+.facts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 12px;
+  margin: 0;
+}
+
+.fact {
+  padding: 14px 16px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+
+.fact dt {
+  margin-bottom: 4px;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.fact dd {
+  margin: 0;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+
+.timeline {
+  position: relative;
+  max-width: 760px;
+  padding-left: 34px;
+  list-style: none;
+}
+
+/* The vertical line */
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  left: 8px;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--sky), var(--mars), var(--violet));
+  opacity: 0.6;
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 14px;
+}
+
+/* The glowing dot on the line */
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  top: 26px;
+  left: -34px;
+  width: 18px;
+  height: 18px;
+  background: var(--bg);
+  border: 3px solid var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 14px var(--accent);
+}
+
+.timeline-button {
+  display: block;
+  width: 100%;
+  padding: 18px 22px;
+  text-align: left;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  color: var(--text);
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.timeline-button:hover {
+  background: var(--panel-strong);
+  border-color: var(--accent);
+  transform: translateX(4px);
+}
+
+.timeline-year {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.timeline-name {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.timeline-text {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+
+.quiz-card {
+  padding: 32px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.quiz-progress {
+  margin-bottom: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+
+.quiz-question {
+  margin-bottom: 22px;
+  font-size: 1.4rem;
+}
+
+.quiz-options {
+  display: grid;
+  gap: 12px;
+}
+
+.quiz-option {
+  padding: 14px 18px;
+  text-align: left;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.quiz-option:hover:not(:disabled) {
+  background: var(--panel-strong);
+  border-color: var(--teal);
+}
+
+.quiz-option:disabled {
+  cursor: default;
+}
+
+/* After answering: green for right, red for wrong */
+.quiz-option.is-correct {
+  background: rgba(74, 222, 128, 0.15);
+  border-color: var(--good);
+}
+
+.quiz-option.is-wrong {
+  background: rgba(251, 113, 133, 0.15);
+  border-color: var(--bad);
+}
+
+.quiz-feedback {
+  min-height: 1.7em;
+  margin: 20px 0 16px;
+  color: var(--muted);
+}
+
+
+
+.about-copy p {
+  color: var(--muted);
+  font-size: 1.1rem;
+}
+
+.site-footer {
+  padding: 48px 0 36px;
+  text-align: center;
+  border-top: 1px solid var(--border);
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.footer-text {
+  color: var(--muted);
+}
+
+.footer-small {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+  opacity: 0.8;
+}
+
+
+
+.reveal {
+  opacity: 0;
+}
+
+.reveal.visible {
+  opacity: 1;
+  animation: rise 0.6s ease backwards;
+  animation-delay: var(--delay, 0ms);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* =========================================================
+   15. RESPONSIVE (SMALL SCREENS)
+   ========================================================= */
+@media (max-width: 860px) {
+
+  /* Stack the hero: text first, planet second */
+  .hero-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    padding-top: 48px;
+  }
+
+  .section {
+    padding: 72px 0;
+  }
+
+  /* Show the menu button, hide the links until it is pressed */
+  .nav-toggle {
+    display: flex;
+  }
+
+  .site-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    display: none;
+    padding: 12px 20px 20px;
+    background: rgba(5, 8, 22, 0.97);
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* script.js adds "is-open" when the button is pressed */
+  .site-nav.is-open {
+    display: block;
+  }
+
+  .site-nav ul {
+    flex-direction: column;
+  }
+
+  .dialog-inner {
+    padding: 36px 22px 28px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-stats {
+    gap: 22px;
+  }
+
+  .quiz-card {
+    padding: 22px;
+  }
+}
+
+
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .reveal {
+    opacity: 1;
+  }
+} 
+.robo {
+    font-family: "Syncopate", sans-serif;
+    font-size: 35px;
+  font-weight: 400;
+  font-style: normal; 
+}

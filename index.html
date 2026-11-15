@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orbit Maven | Stories of the Machines We Left Behind</title>
+  <meta name="description" content="Meet the NASA robots, rovers and probes left on the Moon, on Mars and in deep space, told as stories for curious young explorers.">
+  <meta name="theme-color" content="#050816">
+
+  <!-- The logo doubles as the browser tab icon -->
+  <link rel="icon" type="image/svg+xml" href="logo.svg">
+
+  <!-- Fonts (if you are offline, the page falls back to system fonts) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+  <!-- Our own styles -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- The twinkling stars are drawn on this canvas by script.js -->
+  <canvas id="starfield" aria-hidden="true"></canvas>
+
+  <!-- Helps keyboard users jump straight to the content -->
+  <a class="skip-link" href="#missions">Skip to the missions</a>
+
+
+  <!-- =====================================================
+       HEADER AND NAVIGATION
+       ===================================================== -->
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+
+      <!-- Logo and name -->
+      <a class="brand" href="#top" aria-label="Orbit Maven home">
+        <img class="brand-logo" src="logo.svg" alt="" width="40" height="40">
+        <span class="brand-name">Orbit<span class="brand-accent">Maven</span></span>
+      </a>
+
+      <!-- Menu button (only visible on small screens) -->
+      <button class="nav-toggle"
+              id="nav-toggle"
+              type="button"
+              aria-expanded="false"
+              aria-controls="site-nav"
+              aria-label="Open menu">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+
+      <!-- Menu links -->
+      <nav class="site-nav" id="site-nav" aria-label="Main">
+        <ul>
+          <li><a href="#missions">Missions</a></li>
+          <li><a href="#timeline">Timeline</a></li>
+          <li><a href="#quiz">Quiz</a></li>
+          <li><a href="#about">About</a></li>
+        </ul>
+      </nav>
+
+    </div>
+  </header>
+
+
+  <main>
+
+    <!-- =====================================================
+         HERO
+         ===================================================== -->
+    <section class="hero">
+      <div class="container hero-inner">
+
+        <!-- Left side: words -->
+        <div class="hero-text">
+          <p class="eyebrow">NASA's silent explorers</p>
+
+          <h1>
+            The robots we left behind
+            <span class="gradient-text">still have stories to tell.</span>
+          </h1>
+
+          <p class="hero-lead">
+            For more than 60 years, NASA has sent machines to the Moon, Mars and
+            beyond. Some are still flying. Some went quiet long ago. Meet the
+            landers, rovers and probes that changed what we know about the
+            solar system.
+          </p>
+
+          <div class="hero-buttons">
+            <a class="button button-primary" href="#missions">Meet the machines</a>
+            <a class="button button-ghost" href="#quiz">Take the quiz</a>
+          </div>
+
+          <!-- These numbers are filled in by script.js from the mission list -->
+          <ul class="hero-stats" aria-label="What you can explore">
+            <li>
+              <strong data-stat="moon">0</strong>
+              <span>on the Moon</span>
+            </li>
+            <li>
+              <strong data-stat="mars">0</strong>
+              <span>on Mars</span>
+            </li>
+            <li>
+              <strong data-stat="deep">0</strong>
+              <span>in deep space</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Right side: a pure-CSS orbiting planet system -->
+        <div class="hero-visual" aria-hidden="true">
+          <div class="orbit-system">
+            <div class="planet-core"></div>
+
+            <div class="orbit-ring ring-1">
+              <span class="orbit-dot dot-moon"></span>
+            </div>
+
+            <div class="orbit-ring ring-2">
+              <span class="orbit-dot dot-mars"></span>
+            </div>
+
+            <div class="orbit-ring ring-3">
+              <span class="orbit-dot dot-deep"></span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+         MISSIONS (cards are created by script.js)
+         ===================================================== -->
+    <section class="section" id="missions">
+      <div class="container">
+
+        <header class="section-heading">
+          <p class="eyebrow">The collection</p>
+          <h2>Meet the machines</h2>
+          <p class="section-lead">
+            Pick a place, then pick a machine. Each one tells its own story:
+            why it was sent, how it worked, and what it taught us.
+          </p>
+        </header>
+
+        <!-- Filter buttons -->
+        <div class="filter-bar" role="group" aria-label="Filter machines by location">
+          <button class="filter-button is-active" type="button" data-filter="all" aria-pressed="true">All</button>
+          <button class="filter-button" type="button" data-filter="moon" aria-pressed="false">Moon</button>
+          <button class="filter-button" type="button" data-filter="mars" aria-pressed="false">Mars</button>
+          <button class="filter-button" type="button" data-filter="deep" aria-pressed="false">Deep space</button>
+        </div>
+
+        <!-- What the colored badges mean -->
+        <ul class="legend" aria-label="What the status badges mean">
+          <li><span class="status status-active">Active</span> still sending data</li>
+          <li><span class="status status-silent">Silent</span> no longer talking to Earth</li>
+          <li><span class="status status-ended">Ended</span> mission finished for good</li>
+        </ul>
+
+        <!-- The cards go here -->
+        <div class="mission-grid" id="mission-grid" aria-live="polite"></div>
+
+        <p class="voice-note">
+          The first-person voices are imagined by us to make the stories fun.
+          The dates, numbers and discoveries are real.
+        </p>
+
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+         TIMELINE (items are created by script.js)
+         ===================================================== -->
+    <section class="section section-alt" id="timeline">
+      <div class="container">
+
+        <header class="section-heading">
+          <p class="eyebrow">Across the decades</p>
+          <h2>A timeline of arrivals</h2>
+          <p class="section-lead">
+            From a scout on the Moon in 1967 to a helicopter on Mars in 2021.
+            Click any entry to open its story.
+          </p>
+        </header>
+
+        <ol class="timeline" id="timeline-list"></ol>
+
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+         QUIZ (questions are shown by script.js)
+         ===================================================== -->
+    <section class="section" id="quiz">
+      <div class="container container-narrow">
+
+        <header class="section-heading">
+          <p class="eyebrow">Test your knowledge</p>
+          <h2>Mission quiz</h2>
+          <p class="section-lead">
+            Six questions. Read a few stories first, then see how much
+            you remember.
+          </p>
+        </header>
+
+        <div class="quiz-card" id="quiz-card">
+          <p class="quiz-progress" id="quiz-progress"></p>
+          <h3 class="quiz-question" id="quiz-question"></h3>
+          <div class="quiz-options" id="quiz-options"></div>
+          <p class="quiz-feedback" id="quiz-feedback" aria-live="polite"></p>
+          <button class="button button-primary quiz-next" id="quiz-next" type="button" hidden>Next question</button>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+         ABOUT
+         ===================================================== -->
+    <section class="section section-alt" id="about">
+      <div class="container container-narrow">
+
+        <header class="section-heading">
+          <p class="eyebrow">About</p>
+          <h2>Why Orbit Maven exists</h2>
+        </header>
+
+        <div class="about-copy">
+          <p>
+            A "maven" is an expert who loves sharing what they know. Orbit Maven
+            is built for school-age and casual space fans who usually only hear
+            about missions that are happening right now.
+          </p>
+          <p>
+            Behind every active mission stand decades of older machines that
+            did the hard work first. Their engineering and discoveries made
+            today's exploration possible, and they deserve to be remembered.
+          </p>
+          <p>
+            Mission status can change. For the very latest on active
+            spacecraft, check NASA's official mission pages.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- =====================================================
+       FOOTER
+       ===================================================== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+
+      <div class="footer-brand">
+        <img class="brand-logo" src="logo.svg" alt="" width="36" height="36">
+        <span class="brand-name">Orbit<span class="brand-accent">Maven</span></span>
+      </div>
+
+      <p class="footer-text">
+        Learn more from NASA:
+        <a href="https://www.nasa.gov" target="_blank" rel="noopener">nasa.gov</a>,
+        <a href="https://science.nasa.gov" target="_blank" rel="noopener">science.nasa.gov</a> and
+        <a href="https://nssdc.gsfc.nasa.gov" target="_blank" rel="noopener">NSSDCA</a>.
+      </p>
+
+      <p class="footer-small">
+        &copy; <span id="year"></span> Orbit Maven. An independent educational project,
+        not affiliated with or endorsed by NASA.
+      </p>
+
+    </div>
+  </footer>
+
+
+  <!-- =====================================================
+       STORY POP-UP (filled in by script.js)
+       The <dialog> element gives us a pop-up, a dark background,
+       and the Escape key to close it, all built in.
+       ===================================================== -->
+  <dialog id="mission-dialog" aria-labelledby="dialog-title">
+    <button class="dialog-close" id="dialog-close" type="button" aria-label="Close story">&times;</button>
+    <div class="dialog-inner" id="dialog-content"></div>
+  </dialog>
+
+
+  <!-- Our JavaScript (at the bottom so the page loads first) -->
+  <script src="script.js"></script>
+
+</body>
+</html>
